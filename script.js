@@ -10,6 +10,12 @@ function computerPlay(comp_choices) {
 }
 
 
+// Function to see if the user entered a valid answer
+function isValidAnswer(user_choice) {
+    return (choices.indexOf(user_choice) > -1);
+}
+
+
 // Function to figure out who wins the round based on a choice
 // function isUserWin(cpu_choice, user_choice)
 
@@ -29,25 +35,12 @@ for (let i = 0; i <= 5; i++) {
 
     // Prompt the user to make a choice of either rock, paper, or scissors
     let player_choice = prompt("Type your choice.\nRock, Paper, or Scissors?").toLowerCase();
-    let valid_answer;
 
-    // Use switch case statement with cases as the choices
-    switch (player_choice.toLowerCase()) {
-        case "rock":
-        case "paper":
-        case "scissors":
-            console.log(`Computer's Choice: ${comp_choice}\nPlayer's Choice: ${player_choice}`);
-            // isUserWin(comp_choice, player_choice);
-            break;
-        default:
-            valid_answer = false;
-            console.log("You did not enter a valid choice.");
+    // Check that the answer is valid
+    if (isValidAnswer(player_choice)) {
+        console.log("That's a valid answer.");
+    } else {
+        // Then just continue to the next iteration and have them enter a valid choice
+        alert("Not a valid answer. Please type a new answer.")
     }
-
-    // If it is not a valid answer, then just continue to next iteration and have them choose again
-    if (valid_answer === false) {
-        continue;
-    }
-
-    console.log("That was a valid answer");
 }

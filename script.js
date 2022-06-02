@@ -17,12 +17,42 @@ function isValidAnswer(user_choice) {
 
 
 // Function to figure out who wins the round based on a choice
-// function isUserWin(cpu_choice, user_choice)
+function isUserWin(cpu_choice, user_choice) {
+    switch (user_choice) {
+        // If the user chose rock
+        case "rock":
+            // Then they win against scissors
+            if (cpu_choice === "scissors") {
+                return true;
+            }
+            // But lose against paper
+            if (cpu_choice === "paper") {
+                return false;
+            }
 
+        // If the user chose paper
+        case "paper":
+            // Then they win against rock
+            if (cpu_choice === "rock") {
+                return true;
+            }
+            // But lose against scissors
+            if (cpu_choice === "scissors") {
+                return false;
+            }
 
-// function playRound(isPlayerWin) {
-
-// }
+        // If the user chose scissors
+        case "scissors":
+            // Then they win against paper
+            if (cpu_choice === "paper") {
+                return true;
+            }
+            // But lose against rock
+            if (cpu_choice === "rock") {
+                return false;
+            }
+    }
+}
 
 
 // Define the choices we have
@@ -38,9 +68,17 @@ for (let i = 0; i <= 5; i++) {
 
     // Check that the answer is valid
     if (isValidAnswer(player_choice)) {
-        console.log("That's a valid answer.");
+        // Check if they tie right here
+
+        // If they do not tie, then check who wins
+        if (isUserWin(comp_choice, player_choice)) {
+            alert(`You Win! ${player_choice} beats ${comp_choice}`)
+        } else {
+            alert(`You Lose! ${comp_choice} beats ${player_choice}`)
+        }
     } else {
         // Then just continue to the next iteration and have them enter a valid choice
-        alert("Not a valid answer. Please type a new answer.")
+        alert("Not a valid answer. Please type a new answer.");
     }
 }
+

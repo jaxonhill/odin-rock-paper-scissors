@@ -55,6 +55,16 @@ function isUserWin(cpu_choice, user_choice) {
 }
 
 
+// Function to see if they tie
+function isTie(cpu_choice, user_choice) {
+    if (cpu_choice === user_choice) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 // Define the choices we have
 const choices = ["rock", "paper", "scissors"];
 
@@ -69,12 +79,14 @@ for (let i = 0; i <= 5; i++) {
     // Check that the answer is valid
     if (isValidAnswer(player_choice)) {
         // Check if they tie right here
-
+        if (isTie(comp_choice, player_choice)) {
+            alert(`You Tied! You both picked ${player_choice}`);
+        }
         // If they do not tie, then check who wins
-        if (isUserWin(comp_choice, player_choice)) {
-            alert(`You Win! ${player_choice} beats ${comp_choice}`)
+        else if (isUserWin(comp_choice, player_choice)) {
+            alert(`You Win! ${player_choice} beats ${comp_choice}`);
         } else {
-            alert(`You Lose! ${comp_choice} beats ${player_choice}`)
+            alert(`You Lose! ${comp_choice} beats ${player_choice}`);
         }
     } else {
         // Then just continue to the next iteration and have them enter a valid choice

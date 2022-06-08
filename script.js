@@ -64,33 +64,72 @@ function isTie(cpu_choice, user_choice) {
     }
 }
 
+// Function to delete the outputs already on screen
+// function deleteOutcome() {
 
-// Define the choices we have
-const choices = ["rock", "paper", "scissors"];
+// }
 
-for (let i = 0; i <= 5; i++) {
+// Function to display text on screen
+function displayOutcome(cpu_choice, outcome_text) {
+    // If the dynamic class already is on the page, then just change it
+    if (document.querySelector('.dynamic')) {
+        comp_chose.textContent = `The computer chose: ${cpu_choice}`;
+    } else {
+        comp_chose = document.createElement('p');
+        comp_chose.classList.add('dynamic');
+        comp_chose.textContent = `The computer chose: ${cpu_choice}`;
+    }
 
+    if (document.querySelector('#w-or-l')) {
+        outcome.textContent = outcome_text;
+    } else {
+        outcome = document.createElement('p');
+        outcome.classList.add('dynamic');
+        outcome.setAttribute('id', 'w-or-l');
+        outcome.textContent = outcome_text;
+    }
+
+    // Select the main container
+    container = document.querySelector('.container');
+
+    // Select the make a choice paragraph
+    make_choice_p = document.querySelector('#make-selection');
+
+    // Insert both paragraphs into the DOM
+    container.insertBefore(comp_chose, make_choice_p);
+    container.insertBefore(outcome, make_choice_p);
+}
+
+// Function to play a round
+function playRound(player_choice) {
     // Computer makes a choice here
     let comp_choice = computerPlay(choices);
-
-    // Prompt the user to make a choice of either rock, paper, or scissors
-    let player_choice = prompt("Type your choice.\nRock, Paper, or Scissors?").toLowerCase();
 
     // Check that the answer is valid
     if (isValidAnswer(player_choice)) {
         // Check if they tie right here
         if (isTie(comp_choice, player_choice)) {
-            alert(`You Tied! You both picked ${player_choice}`);
+            displayOutcome(comp_choice, `You Tied! You both picked ${player_choice}`);
         }
         // If they do not tie, then check who wins
         else if (isUserWin(comp_choice, player_choice)) {
-            alert(`You Win! ${player_choice} beats ${comp_choice}`);
+            displayOutcome(comp_choice, `You Win! ${player_choice} beats ${comp_choice}`);
         } else {
-            alert(`You Lose! ${comp_choice} beats ${player_choice}`);
+            displayOutcome(comp_choice, `You Lose! ${comp_choice} beats ${player_choice}`);
         }
     } else {
         // Then just continue to the next iteration and have them enter a valid choice
-        alert("Not a valid answer. Please type a new answer.");
+        displayOutcome(comp_choice, "Something went wrong.");
     }
 }
 
+// Define the choices we have
+const choices = ["rock", "paper", "scissors"];
+
+// Create a node list of buttons
+const buttons = document.querySelectorAll('.btn');
+buttons.forEach(button => {
+    button.addEventListener('click', function (e) {
+        playRound(this.id);
+    });
+});
